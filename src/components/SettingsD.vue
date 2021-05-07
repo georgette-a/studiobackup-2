@@ -56,17 +56,17 @@ export default {
   data(){
     return {
       email: '',
-    password: '',
-    fName: '',
-    lName:'',
+      password: '',
+      fName: '',
+      lName:'',
     }
   },
   methods:{
 
     addClient(){
       auth.createUserWithEmailAndPassword(this.email, this.password)
-        .then(cred => {
-          console.log(cred)
+        .then(ScopedCredential => {
+          console.log(ScopedCredential)
     
         });
     }
