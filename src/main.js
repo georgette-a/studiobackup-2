@@ -11,4 +11,5 @@ import './assets/tailwind.css'
 import "firebase/auth";
 
 
+
 createApp(App).use(store).use(router).use(firebase).mount('#app')

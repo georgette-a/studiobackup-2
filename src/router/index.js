@@ -49,7 +49,7 @@ const routes = [
         // 
         children:[
           {
-            path:'/clientlist/editclient',
+            path:'clientlist/editclient',
             component:() => import(/*webpack chunk name: dashmenu*/ '../components/EditClient'),
           }
 
@@ -86,13 +86,3 @@ router.beforeEach((to, from, next) => {
   }
 });
 export default router
-// if (firebase.auth().currentUser) {
-//   next();
-// } else {
-//   alert('You must be logged in to see this page');
-//   next({
-//     path: '/',
-//   });
-// }
-// } else {
-// next();

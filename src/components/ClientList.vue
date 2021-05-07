@@ -1,6 +1,12 @@
 <template>
 <div>
-  <div>
+  <div v-if="showModal">
+      <div>
+        <router-view></router-view>
+      </div>
+    </div>
+  
+  <div v-else>
 <h1 class=" text-gray text-2xl pb-3">Client List</h1>
 <div class="relative flex flex-row-reverse">
   <div class="flex flex-col">
@@ -47,7 +53,7 @@
                 {{client.projects}}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <router-link to="/clientlist/editclient" tag="button" class="text-indigo-600 hover:text-indigo-900 bg-transparent">Edit</router-link>
+                <router-link to="clientlist/editclient" tag="button" class="text-indigo-600 hover:text-indigo-900 bg-transparent">Edit</router-link>
               </td>
             </tr>
 
@@ -72,6 +78,14 @@ import db from "./firebaseInit"
  // eslint-disable-next-line no-unused-vars
 var usersCollection = db.collection("Users");
 export default {
+      watch: {
+    $route: {
+      immediate: true,
+      handler: function(newVal) {
+        this.showModal = newVal.meta && newVal.meta.showModal;
+      }
+}
+  },
    
   data() {
     return{

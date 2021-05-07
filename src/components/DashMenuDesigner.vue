@@ -50,6 +50,7 @@
 
 <script>
 import firebase from 'firebase/app'
+
 // import db from "./firebaseInit"
 // var usersCollection = db.collection("Users");
 // var issuesCollection  = db.collection("Issues");
