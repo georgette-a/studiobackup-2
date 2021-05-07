@@ -37,7 +37,7 @@
     "eslint-plugin-vue": "^7.0.0",
     "postcss": "^8.0.0",
     "vue-cli-plugin-tailwind": "~2.0.6",
-    "vue-svg-loader": "^0.16.0",
+    "vue-svg-loader": "^0.17.0-beta.2",
     "vue-template-compiler": "^2.6.12"
   },
   "peerDependencies": {
