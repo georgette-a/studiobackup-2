@@ -26,12 +26,12 @@
 		</div>
 		
 
-		<form>
+		<form @submit.prevent="updateValues">
 			<h1 class="text-white px-4 text">Heading</h1>
 			<div class="px-4 pt-6 grid grid-cols-5 gap-5">
 			<div class="col-span-5 xs:col-span-5">
 				<label for="text_title" class="block text-sm font-medium text-white ">Heading Text</label>
-                <input type="text" name="text_title" id="text_title"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="Line_1" name="text_title" id="text_title"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
             </div>
 			
 			<div class="col-span-2 sm:col-span-2 mt-2">
@@ -63,6 +63,9 @@
 					<option v-for="hstyle in fstyle" v-bind:key="hstyle">{{hstyle}}</option>
                 </select>
             </div>
+			<div>
+				<button type="submit" @click="Line1" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-st-gray bg-st-yellow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
+			</div>
 			</div>
 		</form>
 
@@ -95,8 +98,8 @@
 	</div>
 
 	
-		<div class="container max-w-md pt-10 mx-auto overflow-hidden">
-			<img src="svgString" alt="">
+		<div class="container static max-w-md pt-10  overflow-hidden">
+			<testOne :heading="Line_1" body="hello"/>
 	</div>
   
 </div>
@@ -104,10 +107,13 @@
 </template>
 
 <script>
-
+import testOne from './svgCanvas.vue';
 import axios from 'axios';
 export default {
 
+components:{
+	testOne,
+},
 
 data() {
 	return {
@@ -118,10 +124,25 @@ data() {
 		ht2_colour: '#ffc600',
 		fontlist: null,
         line2:'',
+		Line_1:'',
+		
+		
 		fstyle:["Extra Light","Light","Regular","Bold","ExtraBold","Black"]
 	}
 	
 },
+	computed:{
+		Line1:{
+			get(){
+				return this.Line_1;
+			},
+			set(value) {
+				this.$emit(this.Line_1, value);
+			}
+
+		}
+
+	},
 
 mounted: function() {
 	axios.get('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAGGVuBRYRaEP9WqZXj_KZwF5lqWejzNv0')
