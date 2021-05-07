@@ -15,7 +15,7 @@ const routes = [
   {
     path: '/studio',
     name: 'Studio',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Studio.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../components/Studio.vue')
   },
   {
     path: '/dashboard',

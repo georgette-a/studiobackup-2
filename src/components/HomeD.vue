@@ -52,7 +52,7 @@
         <img alt="Placeholder" class="rounded-lg mx-auto border-st-gray border-2 w-28 h-28" src="https://picsum.photos/600/400/?random">
       </span>
       <span>
-        <p class="truncate pt-2">Project Name's way too long</p>
+        <p class="truncate pt-2">{{userID}}</p>
         <p class="text-sm text-gray-700 text-opacity-50 truncate">Client Name</p>
       </span>
     </div>
@@ -64,6 +64,7 @@
 </div>
 </template>
 <script>
+import firebase from 'firebase/app'
 import 'firebase/auth'
 import db from "./firebaseInit"
 
@@ -75,33 +76,46 @@ export default {
    
   data() {
     return{
-      clients:[]
+      userID:'',
+      userName:'',
+      projectName:'',
+      templateName:'',
+      svgCanvas:'',
+      projects:[],
+      userIn: '',
     }
     
   },
-  getUsers() {
-        usersCollection.get().then((querySnapshot) => {
-        this.loading = false
-        querySnapshot.forEach((doc) => {
-          if (doc.data().admin == false){
-          const data = {
-            
-              'name': doc.data().Name,
-              'email': doc.data().email,
-              'projects': (doc.data().Projects).toString()
-
-            }
-
-           console.log(data)
-          this.clients.push(data)
-          }
+  methods:{
+    openProject(){
+      const userIn = firebase.auth().currentUser.uid;
+      this.userIn = userIn;
+    },
+    getProject(){
+projectCollection.get().then((querySnapshot) => {
+      
+      querySnapshot.forEach((doc) => {
+        if (doc.data().user == this.userIn){
+        const data = {
           
-        })
+            'name': doc.data().Name,
+            'email': doc.data().email,
+            'projects': (doc.data().Projects).toString()
+
+          }
+          console.log(data)
+          this.projects.push(data)
+        }
+        
       })
-      },
+    })
+    }
+    
+  },
 
   created () {
-    this.getUsers();
+    this.openProject();
+    this.getProject();
       
     }
 }

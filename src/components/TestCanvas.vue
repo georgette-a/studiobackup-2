@@ -8,7 +8,7 @@
         <rect style="fill:#3A3A3A;" width="595.28" height="841.89"/>
       </g>
       <g id="Line_1">
-        <text transform="matrix(1 0 0 1 125.4193 352.0894)" :fill="" style="font-family:'Montserrat-ExtraBold'; font-size:56px;">{{ht_line1}}</text>
+        <text transform="matrix(1 0 0 1 125.4193 352.0894)" fill="#FFFFFF" style="font-family:'Montserrat-ExtraBold'; font-size:56px;">{{ht_line1}}</text>
         <text transform="matrix(1 0 0 1 149.6187 406.8807)" style="fill:#FFFFFF; font-family:'Montserrat-ExtraBold'; font-size:56px;">{{ht_line2}}</text>
       </g>
     </svg>

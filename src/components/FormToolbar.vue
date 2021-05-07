@@ -10,7 +10,7 @@
 
 		<div class="h-16 flex justify-center items-center w-full">
 			<!-- Back Section -->
-			<router-link to="/home" tag="button" active-class="active" class="flex flex-row space-x-3">
+			<router-link to="/dashboard/home" tag="button" active-class="active" class="flex flex-row space-x-3">
                 <span>
 				<svg 
                 class="h-6 w-6 mx-auto"
@@ -31,7 +31,7 @@
 			<div class="px-4 pt-6 grid grid-cols-5 gap-5">
 			<div class="col-span-5 xs:col-span-5">
 				<label for="text_title" class="block text-sm font-medium text-white ">Heading Text</label>
-                <input type="text" name="text_title" id="text_title" class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" name="text_title" id="text_title"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
             </div>
 			
 			<div class="col-span-2 sm:col-span-2 mt-2">
@@ -40,42 +40,14 @@
 					<option v-for="htsize in ht_size" v-bind:key="htsize">{{htsize}}</option>
 				</select>
 			</div>
-			<div class="col-span-3 sm:col-span-3 mt-2">
-				<div class="form__label">
-					<label for="fontpicker" class="block text-sm font-medium text-white">Text Colour</label>
-					</div>
-				<div class="form__input">
-					<v-swatches
-					v-model="ht_color"
-					show-fallback
-					popover-x="left"
-					></v-swatches>
-				</div>
-			</div>
+			
 
-			<div class="col-span-2 sm:col-span-2 mt-2">
-				<div class="form__label">
-					<label for="fontpicker" class="block text-sm font-medium text-white">Background Colour</label>
-					</div>
-				<div class="form__input">
-					<v-swatches
-					v-model="bg_colour"
-					show-fallback
-					popover-x="left"
-					></v-swatches>
-				</div>
-			</div>
+		
 			<div class="col-span-2 sm:col-span-2 mt-2">
 				<div class="form__label">
 					<label for="fontpicker" class="block text-sm font-medium text-white">Line 2 Colour</label>
 					</div>
-				<div class="form__input">
-					<v-swatches
-					v-model="ht2_colour"
-					show-fallback
-					popover-x="left"
-					></v-swatches>
-				</div>
+				
 			</div>
 
 			<div class="col-span-5 sm:col-span-5 mt-2">
@@ -124,7 +96,7 @@
 
 	
 		<div class="container max-w-md pt-10 mx-auto overflow-hidden">
-			<TestCanvas/>
+			<img src="svgString" alt="">
 	</div>
   
 </div>
@@ -132,14 +104,14 @@
 </template>
 
 <script>
-import VSwatches from 'vue-swatches'
+
 import axios from 'axios';
 export default {
 
-components: { VSwatches },
-props: ['ht_colour','ht_text','hfont_style','hfont_size'],
+
 data() {
 	return {
+		svgString:'<?xml version="1.0" encoding="utf-8"?> {{haha}} <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 595.28 841.89" style="enable-background:new 0 0 595.28 841.89;" xml:space="preserve"><g id="Background"><rect style="fill:#3A3A3A;" width="595.28" height="841.89"/></g><g id="Line_1"><text transform="matrix(1 0 0 1 125.4193 352.0894)" style="fill:#FDC506; font-family:"Montserrat-ExtraBold;" font-size:56px;">{{welcome to}}</text><text transform="matrix(1 0 0 1 149.6187 406.8807)" style="fill:#FFFFFF; font-family:"Montserrat-ExtraBold"; font-size:56px;">{{the studio!}}</text></g></svg>',
 		ht_size:['14','16','18','20','24',"28","30"],
 		ht_color: '#ffffff',
 		bg_colour: '#3a3a3a',
@@ -156,6 +128,7 @@ mounted: function() {
 		.then(response => this.fontlist = response.data.items)
 		
 	},
+	
 
 }
 
