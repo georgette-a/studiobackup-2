@@ -5,10 +5,10 @@
 	<!-- container -->
 	
 	<aside
-		class="flex flex-col items-center bg-st-gray text-white shadow h-full w-60 overflow-y-auto">
+		class="flex flex-col items-center bg-st-gray text-white shadow h-full w-80 overflow-y-auto">
 		<!-- Side Nav Bar-->
 
-		<div class="h-16 flex justify-center items-center w-full">
+		<div class="h-16 flex justify-left items-left pl-2 py-6 w-full">
 			<!-- Back Section -->
 			<router-link to="/dashboard/home" tag="button" active-class="active" class="flex flex-row space-x-3">
                 <span>
@@ -27,27 +27,29 @@
 		
 
 		<form @submit.prevent="updateValues">
-			<h1 class="text-white px-4 text">Heading</h1>
+			<h1 class="text-white px-4 text">Edit Text</h1>
 			<div class="px-4 pt-6 grid grid-cols-5 gap-5">
-			<div class="col-span-5 xs:col-span-5">
+			<div class="col-span-3 xs:col-span-3">
 				<label for="text_title" class="block text-sm font-medium text-white ">Heading Text</label>
                 <input type="text" v-model="Line_1" name="text_title" id="text_title"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
             </div>
 			
-			<div class="col-span-2 sm:col-span-2 mt-2">
+			<div class="col-span-2 sm:col-span-2">
 				<label for="fontpicker" class="block text-sm font-medium text-white">Text Size</label>
 				<select name="ht-size" id="ht-size" class="appearance-none mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 					<option v-for="htsize in ht_size" v-bind:key="htsize">{{htsize}}</option>
 				</select>
 			</div>
+			<div class="col-span-3 xs:col-span-3">
+				<label for="text_body" class="block text-sm font-medium text-white ">Body Text</label>
+                <input type="text" v-model="Line_2" name="text_bofy" id="text_body"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+            </div>
 			
-
-		
-			<div class="col-span-2 sm:col-span-2 mt-2">
-				<div class="form__label">
-					<label for="fontpicker" class="block text-sm font-medium text-white">Line 2 Colour</label>
-					</div>
-				
+			<div class="col-span-2 sm:col-span-2">
+				<label for="fontpickers" class="block text-sm font-medium text-white">Text Size</label>
+				<select name="ht-sized" id="ht-sized" class="appearance-none mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+					<option></option>
+				</select>
 			</div>
 
 			<div class="col-span-5 sm:col-span-5 mt-2">
@@ -64,7 +66,7 @@
                 </select>
             </div>
 			<div>
-				<button type="submit" @click="Line1" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-st-gray bg-st-yellow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
+				<button type="submit" @click="updateLine_1" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-st-gray bg-st-yellow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
 			</div>
 			</div>
 		</form>
@@ -99,7 +101,8 @@
 
 	
 		<div class="container static max-w-md pt-10  overflow-hidden">
-			<testOne :heading="Line_1" body="hello"/>
+			<!-- <testOne :heading="Line_1" body="hello"/> -->
+			<div v-html="svgString"></div>
 	</div>
   
 </div>
@@ -107,23 +110,28 @@
 </template>
 
 <script>
-import testOne from './svgCanvas.vue';
+// import firebase from 'firebase/app'
+// import 'firebase/auth'
+// import db from "./firebaseInit"
+// var projectCollection = db.collection("Projects");
+
+// import testOne from './svgCanvas.vue';
 import axios from 'axios';
 export default {
 
 components:{
-	testOne,
+	// testOne,
 },
 
 data() {
 	return {
-		svgString:'<?xml version="1.0" encoding="utf-8"?> {{haha}} <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 595.28 841.89" style="enable-background:new 0 0 595.28 841.89;" xml:space="preserve"><g id="Background"><rect style="fill:#3A3A3A;" width="595.28" height="841.89"/></g><g id="Line_1"><text transform="matrix(1 0 0 1 125.4193 352.0894)" style="fill:#FDC506; font-family:"Montserrat-ExtraBold;" font-size:56px;">{{welcome to}}</text><text transform="matrix(1 0 0 1 149.6187 406.8807)" style="fill:#FFFFFF; font-family:"Montserrat-ExtraBold"; font-size:56px;">{{the studio!}}</text></g></svg>',
+		svgString:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><g id="Background"><rect width="1920" height="1080" fill="#fdc506"/></g><g id="Heading"><text transform="translate(207.12 226.24)" font-size="72" fill="#1d1d1b" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800">{{HEADING}}</text><text transform="translate(212.16 407.08)" font-size="72" fill="#1d1d1b" font-family="Montserrat-SemiBold, Montserrat" font-weight="600">{{Body}}</text></g></svg>',
 		ht_size:['14','16','18','20','24',"28","30"],
 		ht_color: '#ffffff',
 		bg_colour: '#3a3a3a',
 		ht2_colour: '#ffc600',
 		fontlist: null,
-        line2:'',
+        Line_2:'',
 		Line_1:'',
 		
 		
@@ -132,17 +140,53 @@ data() {
 	
 },
 	computed:{
-		Line1:{
-			get(){
-				return this.Line_1;
-			},
-			set(value) {
-				this.$emit(this.Line_1, value);
-			}
-
-		}
+		updateLine1: function(){
+			return this.Line_1;}
 
 	},
+	methods:{
+		updateLine_1(){
+			
+			console.log(this.Line_1);
+			this.svgProcessing(this.svgString);
+			return this.updateLine1;
+		},
+
+		svgProcessing(string){
+			var regexp = /\{{(.*?)\}}/g;
+			var text = string.match(regexp);
+
+
+			if (text && text.length > 0){
+			
+				const t1= this.Line_1;
+				const t2=this.Line_2;
+				const t3='text3';
+				const t4='t4';
+				const t5='t5';
+				const arr = [t1,t2,t3,t4,t5];
+				var len = text.length;
+				
+				for (var i = 0; i < len; ){
+				text = string.match(regexp);
+				string = string.replace(text[0],arr[i]);
+				i++
+
+				console.log(string);
+
+				
+				
+				}
+				return string;
+
+			} else {
+				console.log('No Match')
+			}
+
+		},
+
+	},
+
 
 mounted: function() {
 	axios.get('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAGGVuBRYRaEP9WqZXj_KZwF5lqWejzNv0')
