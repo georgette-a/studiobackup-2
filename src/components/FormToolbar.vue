@@ -99,7 +99,7 @@
 
 	
 		<div class="container static max-w-md pt-10  overflow-hidden">
-			<testOne :heading="Line_1" body="hello"/>
+			
 	</div>
   
 </div>
@@ -107,12 +107,12 @@
 </template>
 
 <script>
-import testOne from './svgCanvas.vue';
+
 import axios from 'axios';
 export default {
 
 components:{
-	testOne,
+
 },
 
 data() {
@@ -125,30 +125,56 @@ data() {
 		fontlist: null,
         line2:'',
 		Line_1:'',
+		Line_3: '',
+		Line_4: '',
+		Line_5: '',
 		
 		
 		fstyle:["Extra Light","Light","Regular","Bold","ExtraBold","Black"]
 	}
 	
 },
-	computed:{
-		Line1:{
-			get(){
-				return this.Line_1;
-			},
-			set(value) {
-				this.$emit(this.Line_1, value);
-			}
+created:{
+	
 
-		}
-
-	},
+},
+	
 
 mounted: function() {
 	axios.get('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyAGGVuBRYRaEP9WqZXj_KZwF5lqWejzNv0')
 		.then(response => this.fontlist = response.data.items)
 		
 	},
+
+	methods:{
+		svgProcessing(string){
+		var regexp = /\{{(.*?)\}}/g;
+		var text = string.match(regexp);
+
+		if (text && text.length > 0){
+			const t1= this.Line_1;
+			const t2=this.line2;
+			const t3=this.Line_3;
+			const t4=this.Line_4;
+			const t5=this.Line_5;
+			const arr = [t1,t2,t3,t4,t5];
+			var len = text.length;
+			
+			for (var i = 0; i < len; ){
+				text = string.match(regexp);
+				string = string.replace(text[0],arr[i]);
+				i++
+			
+			}
+			
+			console.log('The array is ['+string+']');
+
+		} else {
+			console.log('No Match')
+		}
+
+		}
+	}
 	
 
 }
