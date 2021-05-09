@@ -171,12 +171,14 @@ data() {
 				text = string.match(regexp);
 				string = string.replace(text[0],arr[i]);
 				i++
-
+				
 				console.log(string);
+				
 
 				
 				
 				}
+				this.svgString = string;
 				return string;
 
 			} else {
