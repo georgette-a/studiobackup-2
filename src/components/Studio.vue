@@ -2,7 +2,7 @@
 
 <div class="static ...">
   <!-- Static parent -->
-  <div class="static ..."><Nav2/></div>
+  <div class="static ..."><nav-2 filename="{{fileName}}"/></div>
   <!-- Static parent -->
   <div class="absolute ... h-full"><form-toolbar></form-toolbar></div>
   
@@ -17,7 +17,12 @@ import FormToolbar from './FormToolbar.vue'
 export default {
   
   name: 'App',
-  components: { Nav2, FormToolbar,}
+  components: { Nav2, FormToolbar,},
+   data(){
+    return{
+      fileName: 'slides'
+    }
+  },
 
 }
 </script>

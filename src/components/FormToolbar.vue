@@ -29,43 +29,33 @@
 		<form @submit.prevent="updateValues">
 			<h1 class="text-white px-4 text">Edit Text</h1>
 			<div class="px-4 pt-6 grid grid-cols-5 gap-5">
-			<div class="col-span-3 xs:col-span-3">
+			<div class="col-span-6 xs:col-span-3">
 				<label for="text_title" class="block text-sm font-medium text-white ">Heading Text</label>
                 <input type="text" v-model="Line_1" name="text_title" id="text_title"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
             </div>
 			
-			<div class="col-span-2 sm:col-span-2">
-				<label for="fontpicker" class="block text-sm font-medium text-white">Text Size</label>
-				<select name="ht-size" id="ht-size" class="appearance-none mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-					<option v-for="htsize in ht_size" v-bind:key="htsize">{{htsize}}</option>
-				</select>
-			</div>
-			<div class="col-span-3 xs:col-span-3">
+			
+			<div class="col-span-6 xs:col-span-3">
 				<label for="text_body" class="block text-sm font-medium text-white ">Body Text</label>
-                <input type="text" v-model="Line_2" name="text_bofy" id="text_body"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <textarea  type="text" v-model="Line_2" name="text_bofy" id="text_body"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>
             </div>
 			
-			<div class="col-span-2 sm:col-span-2">
-				<label for="fontpickers" class="block text-sm font-medium text-white">Text Size</label>
-				<select name="ht-sized" id="ht-sized" class="appearance-none mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-					<option></option>
-				</select>
-			</div>
+			
 
-			<div class="col-span-5 sm:col-span-5 mt-2">
+			<div class="col-span-6 sm:col-span-6 mt-2">
                 <label for="font-name" class="block text-sm font-medium text-white">Font Name</label>
                 <select id="font-name" name="font-name" class="appearance-none mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 					<option v-for="fontname in fontlist" v-bind:key="fontname.family">{{fontname.family}}</option>
                 </select>
             </div>
 
-			<div class="col-span-5 sm:col-span-5 mt-2">
+			<div class="col-span-6 sm:col-span-6 mt-2">
                 <label for="font-var" class="block text-sm font-medium text-white">Font Style</label>
                 <select id="font-var" name="font-var" class="appearance-none mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 					<option v-for="hstyle in fstyle" v-bind:key="hstyle">{{hstyle}}</option>
                 </select>
             </div>
-			<div>
+			<div class="col-span-6 sm:col-span-6 mt-2">
 				<button type="submit" @click="updateLine_1" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-st-gray bg-st-yellow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
 			</div>
 			</div>
@@ -100,9 +90,9 @@
 	</div>
 
 	
-		<div class="container static max-w-md pt-10  overflow-hidden">
+		<div class="container fixed max-w-md pt-10 ml-96 overflow-hidden">
 			<!-- <testOne :heading="Line_1" body="hello"/> -->
-			<div v-html="svgString"></div>
+			<div v-html="tempSVG"></div>
 	</div>
   
 </div>
@@ -125,7 +115,8 @@ components:{
 
 data() {
 	return {
-		svgString:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><g id="Background"><rect width="1920" height="1080" fill="#fdc506"/></g><g id="Heading"><text transform="translate(207.12 226.24)" font-size="72" fill="#1d1d1b" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800">{{HEADING}}</text><text transform="translate(212.16 407.08)" font-size="72" fill="#1d1d1b" font-family="Montserrat-SemiBold, Montserrat" font-weight="600">{{Body}}</text></g></svg>',
+		tempSVG:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><g id="Background"><rect width="1920" height="1080" fill="#fdc506"/></g><g id="Heading"><text transform="translate(207.12 226.24)" font-size="72" fill="#1d1d1b" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800">{{HEADING}}</text><text transform="translate(212.16 407.08)" font-size="72" fill="#1d1d1b" font-family="Montserrat-SemiBold, Montserrat" class=" flex flex-wrap" font-weight="600">{{Body}}</text></g></svg>',
+		svgString:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><g id="Background"><rect width="1920" height="1080" fill="#fdc506"/></g><g id="Heading"><text transform="translate(207.12 226.24)" font-size="72" fill="#1d1d1b" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800">{{HEADING}}</text><text transform="translate(212.16 407.08)" font-size="72" fill="#1d1d1b" font-family="Montserrat-SemiBold, Montserrat"  class="flex flex-wrap" font-weight="600">{{Body}}</text></g></svg>',
 		ht_size:['14','16','18','20','24',"28","30"],
 		ht_color: '#ffffff',
 		bg_colour: '#3a3a3a',
@@ -178,7 +169,7 @@ data() {
 				
 				
 				}
-				this.svgString = string;
+				this.tempSVG = string;
 				return string;
 
 			} else {
