@@ -31,33 +31,36 @@
 			<div class="px-4 pt-6 grid grid-cols-5 gap-5">
 			<div class="col-span-3 xs:col-span-3">
 				<label for="text_title" class="block text-sm font-medium text-white ">Heading Text</label>
-                <input type="text" v-model="Line_1" name="text_title" id="text_title"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text"  v-model="Line_1" @input="updateHeading"   class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
             </div>
 			
 			<div class="col-span-2 sm:col-span-2">
-				<label for="fontpicker" class="block text-sm font-medium text-white">Text Size</label>
-				<select name="ht-size" id="ht-size" class="appearance-none mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-					<option v-for="htsize in ht_size" v-bind:key="htsize">{{htsize}}</option>
-				</select>
+				<label for="fontpicker" class="block text-xs font-medium text-white">Heading Colour</label>
+				<input type="color" name="ht-size" id="ht-size" v-model="heading" @input="updateHeadingColour" class="appearance-none mt-1 block w-full h-10 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+					
 			</div>
 			<div class="col-span-3 xs:col-span-3">
 				<label for="text_body" class="block text-sm font-medium text-white ">Body Text</label>
-                <input type="text" v-model="Line_2" name="text_bofy" id="text_body"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <input type="text" v-model="Line_2" @input="updateBody" name="text_bofy" id="text_body"  class="mt-1 text-st-gray focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
             </div>
 			
 			<div class="col-span-2 sm:col-span-2">
-				<label for="fontpickers" class="block text-sm font-medium text-white">Text Size</label>
-				<select name="ht-sized" id="ht-sized" class="appearance-none mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-					<option></option>
-				</select>
+				<label for="fontpickers" class="block text-sm font-medium text-white">Body Colour</label>
+				<input type="color" name="bodycolor" id="ht-sized" v-model="bodyColour" @input="updateBodyColour" class="appearance-none mt-1 block w-full h-10 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+					
 			</div>
 
-			<div class="col-span-5 sm:col-span-5 mt-2">
+			<div class="col-span-3 sm:col-span-3 mt-5">
                 <label for="font-name" class="block text-sm font-medium text-white">Font Name</label>
                 <select id="font-name" name="font-name" class="appearance-none mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 					<option v-for="fontname in fontlist" v-bind:key="fontname.family">{{fontname.family}}</option>
                 </select>
             </div>
+			<div class="col-span-2 sm:col-span-2 mt-2">
+				<label for="fontpicker" class="block text-xs font-medium text-white ">Background Colour</label>
+				<input  type="color" name="ht-size" v-model="backgroundColour"  id="bgcolour" class="appearance-none mt-1 block w-full h-10 border border-gray-300 bg-white rounded-md shadow-sm text-st-gray focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+		
+			</div>
 
 			<div class="col-span-5 sm:col-span-5 mt-2">
                 <label for="font-var" class="block text-sm font-medium text-white">Font Style</label>
@@ -105,7 +108,7 @@
 	
 		<div class="container static max-w-md pt-10  overflow-hidden">
 			<!-- <testOne :heading="Line_1" body="hello"/> -->
-			<div v-html="svgString"></div>
+			<div v-html="tempSVG"></div>
 	</div>
   
 </div>
@@ -129,14 +132,19 @@ components:{
 
 data() {
 	return {
+		tempSVG:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><g id="Background"><rect width="1920" height="1080" fill="#fdc506"/></g><g id="Heading"><text transform="translate(207.12 226.24)" font-size="72" fill="#1d1d1b" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800">{{HEADING}}</text><text transform="translate(212.16 407.08)" font-size="72" fill="#1d1d1b" font-family="Montserrat-SemiBold, Montserrat" font-weight="600">{{Body}}</text></g></svg>',
 		svgString:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><g id="Background"><rect width="1920" height="1080" fill="#fdc506"/></g><g id="Heading"><text transform="translate(207.12 226.24)" font-size="72" fill="#1d1d1b" font-family="Montserrat-ExtraBold, Montserrat" font-weight="800">{{HEADING}}</text><text transform="translate(212.16 407.08)" font-size="72" fill="#1d1d1b" font-family="Montserrat-SemiBold, Montserrat" font-weight="600">{{Body}}</text></g></svg>',
 		ht_size:['14','16','18','20','24',"28","30"],
 		ht_color: '#ffffff',
 		bg_colour: '#3a3a3a',
 		ht2_colour: '#ffc600',
+		themeColours:['#ffffff','#ffc600','#3a3a3a'],
 		fontlist: null,
         Line_2:'',
 		Line_1:'',
+		headingColour:'',
+		bodyColour:'',
+		backgroundColour:'',
 		
 		
 		fstyle:["Extra Light","Light","Regular","Bold","ExtraBold","Black"]
@@ -149,10 +157,34 @@ data() {
 
 	},
 	methods:{
-		updateLine_1(){
+		updateHeading(){
 			
 			console.log(this.Line_1);
-			this.svgProcessing(this.svgString);
+			this.headingText(this.svgString);
+			return this.updateLine1;
+		},
+		updateBody(){
+			
+			console.log(this.Line_1);
+			this.bodyText(this.svgString);
+			return this.updateLine1;
+		},
+		updateBackgroundColour(){
+			
+			console.log(this.Line_1);
+			this.bgColour(this.svgString);
+			return this.updateLine1;
+		},
+		updateHeadingColour(){
+			
+			console.log(this.Line_1);
+			this.headerText(this.svgString);
+			return this.updateLine1;
+		},
+		updateBodyColour(){
+			
+			console.log(this.Line_1);
+			this.headerText(this.svgString);
 			return this.updateLine1;
 		},
 
@@ -178,17 +210,139 @@ data() {
 				
 				console.log(string);
 				
+				}
+				this.tempSVG = string;
+				this.colourReplace(string);
+				return string;
+				
+
+			} else {
+				console.log('No Match')
+			}
+
+		},
+		headingText(string){
+			var regexp = /\{{(.*?)\}}/g;
+			this.tempSVG = string;
+			var text = string.match(regexp);
+			
+
+
+			if (text && text.length > 0){
+			
+				const t1= this.Line_1;
+				const t2=this.Line_2;
+				const t3='text3';
+				const t4='t4';
+				const t5='t5';
+				const arr = [t1,t2,t3,t4,t5];
+
+				
+				text = string.match(regexp);
+				string = string.replace(text[0],arr[0]);
+				console.log(string);
+				
+				this.tempSVG = string;
+				return string;
+				
+
+			} else {
+				console.log('No Match')
+			}
+
+		},
+		bodyText(string){
+			var regexp = /\{{(.*?)\}}/g;
+			var text = string.match(regexp);
+
+			if (text && text.length > 0){
+			
+				const t1= this.Line_1;
+				const t2=this.Line_2;
+				const t3='text3';
+				const t4='t4';
+				const t5='t5';
+				const arr = [t1,t2,t3,t4,t5];
+
+				
+				text = string.match(regexp);
+				string = string.replace(text[1],arr[1]);
+				
+				
+				this.tempSVG = string;
+				return string;
+				
+
+			} else {
+				console.log('No Match')
+			}
+			
+
+
+		},
+		colourReplace(string){
+			var regexp = /#\w+/g;
+			var text = string.match(regexp);
+
+
+			if (text && text.length > 0){
+			
+				// const t1= this.ht_color;
+				// const t2= this.ht2_colour;
+				// const t3= this.bg_colour;
+				// const t4='col4';
+				// const t5='col5';
+				const arr = [this.backgroundColour, this.headingColour, this.bodyColour];
+				console.log(arr)
+				var len = text.length;
+				
+				for (var i = 0; i < len; ){
+				text = string.match(regexp);
+				string = string.replace(text[i],arr[i]);
+				i++
+				
+				console.log(string);
+				
 
 				
 				
 				}
-				this.svgString = string;
-				this.$store.svgString = this.svgString;
+				this.tempSVG = string;
+				
 				return string;
 
 			} else {
 				console.log('No Match')
 			}
+
+		},
+		bgColour(bstring){
+			var regexp = /#\w+/g;
+			var text = bstring.match(regexp);
+
+
+			if (text && text.length > 0){
+			
+				// const t1= this.ht_color;
+				// const t2= this.ht2_colour;
+				// const t3= this.bg_colour;
+				// const t4='col4';
+				// const t5='col5';
+				const arr = [this.backgroundColour];
+				console.log(arr)
+				var len = text.length;
+				console.log(len);
+				
+				text = bstring.match(regexp);
+				bstring = bstring.replace(text[0],arr[0]);
+				
+				console.log(bstring);
+				this.tempSVG = bstring;
+				return bstring;
+				
+				
+				}
+			
 
 		},
 		downloadFunction(svgFile){
