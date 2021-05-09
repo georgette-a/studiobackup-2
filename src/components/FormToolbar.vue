@@ -68,6 +68,9 @@
 			<div>
 				<button type="submit" @click="updateLine_1" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-st-gray bg-st-yellow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Update</button>
 			</div>
+			<div>
+				<button type="button" @click="downloadFile" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-st-gray bg-st-yellow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 ml-20 focus:ring-indigo-500">download</button>
+			</div>
 			</div>
 		</form>
 
@@ -117,6 +120,7 @@
 
 // import testOne from './svgCanvas.vue';
 import axios from 'axios';
+import { FileSaver } from 'file-saver'
 export default {
 
 components:{
@@ -179,12 +183,26 @@ data() {
 				
 				}
 				this.svgString = string;
+				this.$store.svgString = this.svgString;
 				return string;
 
 			} else {
 				console.log('No Match')
 			}
 
+		},
+		downloadFunction(svgFile){
+			
+			const blob = new Blob([svgFile], {type: 'image/svg+xml'});
+			const url = URL.createObjectURL(blob);
+			const image = document.createElement('img');
+			image.addEventListener('load', () => URL.revokeObjectURL(url), {once: true});
+			image.src = url;
+			FileSaver.saveAs(url,"image.jpg")
+
+		},
+		downloadFile(){
+			this.downloadFunction(this.svgString);
 		},
 
 	},
