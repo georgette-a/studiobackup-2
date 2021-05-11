@@ -1,12 +1,8 @@
 <template>
 <div>
-  <div v-if="showModal">
-      <div>
-        <router-view></router-view>
-      </div>
-    </div>
   
-  <div v-else>
+  
+  <div>
 <h1 class=" text-gray text-2xl pb-3">Client List</h1>
 <div class="relative flex flex-row-reverse">
   <div class="flex flex-col">
@@ -77,16 +73,10 @@ import db from "./firebaseInit"
 
  // eslint-disable-next-line no-unused-vars
 var usersCollection = db.collection("Users");
+
 export default {
-      watch: {
-    $route: {
-      immediate: true,
-      handler: function(newVal) {
-        this.showModal = newVal.meta && newVal.meta.showModal;
-      }
-}
-  },
-   
+ 
+
   data() {
     return{
       clients:[]
@@ -94,7 +84,7 @@ export default {
     
   },
 
-  created () {
+  mounted () {
      this.getClients();
     },
 
@@ -104,11 +94,10 @@ export default {
       this.loading = false
       querySnapshot.forEach((doc) => {
         if (doc.data().admin == false){
-        const data = {
+          const data = {
           
             'name': doc.data().Name,
-            'email': doc.data().email,
-            'projects': (doc.data().Projects).toString()
+            'email': doc.data().Email,
 
           }
           console.log(data)
